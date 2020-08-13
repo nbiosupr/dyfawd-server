@@ -6,7 +6,6 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import site.deepsleep.dyfawd.advice.exception.CInvalidSensorDataException;
 import site.deepsleep.dyfawd.service.ResponseService;
 import site.deepsleep.dyfawd.web.dto.response.CommonResult;
 
