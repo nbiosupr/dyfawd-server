@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import site.deepsleep.dyfawd.domain.collecteddata.SensorData;
 import site.deepsleep.dyfawd.domain.collecteddata.SensorDataRepository;
 import site.deepsleep.dyfawd.web.dto.SensorDataSaveRequestDto;
+import site.deepsleep.dyfawd.web.dto.response.CommonResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,25 +31,24 @@ public class SensorApiControllerTest extends TestCase {
     private SensorDataRepository sensorDataRepository;
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown(){
         sensorDataRepository.deleteAll();
     }
 
     @Test
-    public void 수집데이터_등록_REST() throws Exception {
+    public void 수집데이터_등록_REST(){
         //given
         Double longitude = 37.51815414152548;
         Double latitude = 126.92278699567869;
 
-        String url = "http://localhost:"+ port +"/api/v1/data";
+        String url = "http://localhost:"+ port +"/api/v1/sensordata";
         SensorDataSaveRequestDto requestDto = SensorDataSaveRequestDto.builder().latitude(latitude).longitude(longitude).build();
 
         //when
-        ResponseEntity<Integer> responseEntity = restTemplate.postForEntity(url, requestDto, Integer.class);
+        ResponseEntity<CommonResult> responseEntity = restTemplate.postForEntity(url, requestDto, CommonResult.class);
 
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isGreaterThan(0);
 
         SensorData gottenData = sensorDataRepository.findAll().get(0);
         assertThat(gottenData.getLatitude()).isEqualTo(latitude);
