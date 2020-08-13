@@ -9,20 +9,20 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class CollectedData {
+public class SensorData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dataId;
 
     @Column(nullable = false)
-    private Float longitude;
+    private Double longitude;
 
     @Column(nullable = false)
-    private Float latitude;
+    private Double latitude;
 
     @Builder
-    public CollectedData(Float longitude, Float latitude) {
+    public SensorData(Double longitude, Double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }

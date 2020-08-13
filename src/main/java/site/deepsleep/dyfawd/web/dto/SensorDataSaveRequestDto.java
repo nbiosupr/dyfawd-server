@@ -3,22 +3,24 @@ package site.deepsleep.dyfawd.web.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import site.deepsleep.dyfawd.domain.collecteddata.CollectedData;
+import lombok.Setter;
+import site.deepsleep.dyfawd.domain.collecteddata.SensorData;
 
 @Getter
+@Setter
 @NoArgsConstructor
-public class DataSaveRequestDto {
-    private Float longitude;
-    private Float latitude;
+public class SensorDataSaveRequestDto {
+    private Double longitude;
+    private Double latitude;
 
     @Builder
-    public DataSaveRequestDto(Float longitude, Float latitude) {
+    public SensorDataSaveRequestDto(Double longitude, Double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }
 
-    public CollectedData toEntity(){
-        return CollectedData.builder()
+    public SensorData toEntity(){
+        return SensorData.builder()
                 .latitude(this.latitude)
                 .longitude(this.longitude)
                 .build();
