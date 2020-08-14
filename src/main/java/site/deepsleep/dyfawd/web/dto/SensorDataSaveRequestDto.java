@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import site.deepsleep.dyfawd.domain.collecteddata.SensorData;
+import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGIS;
 
 @Getter
 @Setter
@@ -19,10 +19,12 @@ public class SensorDataSaveRequestDto {
         this.latitude = latitude;
     }
 
-    public SensorData toEntity(){
-        return SensorData.builder()
+    public SensorDataGIS toEntity(String area1, String area2, String area3) {
+        return SensorDataGIS.builder()
                 .latitude(this.latitude)
                 .longitude(this.longitude)
-                .build();
+                .area1(area1)
+                .area2(area2)
+                .area3(area3).build();
     }
 }

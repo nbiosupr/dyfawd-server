@@ -7,10 +7,10 @@ import site.deepsleep.dyfawd.domain.BaseTimeEntity;
 
 import javax.persistence.*;
 
-@Getter
 @NoArgsConstructor
+@Getter
 @Entity
-public class SensorData extends BaseTimeEntity {
+public class SensorDataGIS extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +22,21 @@ public class SensorData extends BaseTimeEntity {
     @Column(nullable = false)
     private Double latitude;
 
+    @Column(nullable = false, length = 100)
+    private String area1;
+
+    @Column(nullable = false, length = 100)
+    private String area2;
+
+    @Column(nullable = false, length = 100)
+    private String area3;
+
     @Builder
-    public SensorData(Double longitude, Double latitude) {
+    public SensorDataGIS(Double longitude, Double latitude, String area1, String area2, String area3) {
         this.longitude = longitude;
         this.latitude = latitude;
+        this.area1 = area1;
+        this.area2 = area2;
+        this.area3 = area3;
     }
 }

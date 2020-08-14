@@ -11,8 +11,8 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import site.deepsleep.dyfawd.domain.collecteddata.SensorData;
-import site.deepsleep.dyfawd.domain.collecteddata.SensorDataRepository;
+import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGIS;
+import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGISRepository;
 import site.deepsleep.dyfawd.web.dto.SensorDataSaveRequestDto;
 import site.deepsleep.dyfawd.web.dto.response.CommonResult;
 
@@ -28,19 +28,21 @@ public class SensorApiControllerTest extends TestCase {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private SensorDataRepository sensorDataRepository;
+    private SensorDataGISRepository sensorDataGISRepository;
+
+    //given
+    private final Double longitude = 128.12345;
+    private final Double latitude = 37.98776;
+
 
     @After
     public void tearDown(){
-        sensorDataRepository.deleteAll();
+        sensorDataGISRepository.deleteAll();
     }
 
     @Test
-    public void 수집데이터_등록_REST(){
+    public void 수집데이터_등록_REST_GIS(){
         //given
-        Double longitude = 37.51815414152548;
-        Double latitude = 126.92278699567869;
-
         String url = "http://localhost:"+ port +"/api/v1/sensordata";
         SensorDataSaveRequestDto requestDto = SensorDataSaveRequestDto.builder().latitude(latitude).longitude(longitude).build();
 
@@ -50,8 +52,9 @@ public class SensorApiControllerTest extends TestCase {
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        SensorData gottenData = sensorDataRepository.findAll().get(0);
+        SensorDataGIS gottenData = sensorDataGISRepository.findAll().get(0);
         assertThat(gottenData.getLatitude()).isEqualTo(latitude);
         assertThat(gottenData.getLongitude()).isEqualTo(longitude);
+        assertThat(gottenData.getArea2()).isEqualTo("인제군");
     }
 }

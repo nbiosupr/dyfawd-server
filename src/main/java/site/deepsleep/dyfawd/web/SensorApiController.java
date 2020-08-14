@@ -17,5 +17,4 @@ public class SensorApiController {
     public CommonResult save(@RequestBody SensorDataSaveRequestDto requestDto) {
         return sensorService.save(requestDto);
     }
-
 }
