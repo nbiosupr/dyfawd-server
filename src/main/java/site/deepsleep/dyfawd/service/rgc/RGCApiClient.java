@@ -1,5 +1,6 @@
 package site.deepsleep.dyfawd.service.rgc;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -9,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import site.deepsleep.dyfawd.dto.rgc.RGCRequestDto;
 import site.deepsleep.dyfawd.dto.rgc.RGCResponseDto;
 
+@RequiredArgsConstructor
 @Service
 public class RGCApiClient {
 
@@ -18,9 +20,9 @@ public class RGCApiClient {
     @Value("${naver.client.secret}")
     private String CLIENT_SECRET;
 
-    private String BASE_URL = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?";
+    private final String BASE_URL = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?";
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
     
     // TODO: 오류 코드에 대한 예외처리
     public RGCResponseDto requestAddress(RGCRequestDto requestDto) {
@@ -33,6 +35,9 @@ public class RGCApiClient {
 
         String url = this.BASE_URL + requestDto.toQueryString();
 
-        return restTemplate.exchange(url, HttpMethod.GET, entity, RGCResponseDto.class).getBody();
+        RGCResponseDto responseDto = null;
+        responseDto = restTemplate.exchange(url, HttpMethod.GET, entity, RGCResponseDto.class).getBody();
+
+        return responseDto;
     }
 }
