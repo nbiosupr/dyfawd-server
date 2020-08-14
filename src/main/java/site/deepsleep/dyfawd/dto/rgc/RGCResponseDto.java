@@ -1,6 +1,5 @@
 package site.deepsleep.dyfawd.dto.rgc;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

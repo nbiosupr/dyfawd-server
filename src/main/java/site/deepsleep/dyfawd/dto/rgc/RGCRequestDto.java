@@ -37,30 +37,34 @@ public class RGCRequestDto {
             double longitude,
             double latitude) {
         this.coords = longitude + "," + latitude;
+        this.output = "json";
     }
 
-    //TODO: StringBuilder와 StringBuffer 중 결정하기.
+    //TODO: StringBuilder 와 StringBuffer 중 결정하기.
     public String toQueryString(){
         StringBuffer sb = new StringBuffer();
-        sb.append("coords="+ this.coords);
+        sb.append("coords=").append(this.coords);
 
         if(this.request!=null){
-            sb.append("&request=" + this.request);
+            sb.append("&request=").append(this.request);
         }
         if(this.sourcecrs!=null){
-            sb.append("&sourcecrs=" + this.sourcecrs);
+            sb.append("&sourcecrs=").append(this.sourcecrs);
         }
         if(this.targetcrs!=null){
-            sb.append("&targetcrs=" + targetcrs);
+            sb.append("&targetcrs=").append(targetcrs);
         }
         if(this.orders!=null){
-            sb.append("&orders=" + orders);
+            sb.append("&orders=").append(orders);
         }
         if(this.callback!=null){
-            sb.append("&callback=" + callback);
+            sb.append("&callback=").append(callback);
         }
         if(this.orders!=null){
-            sb.append("&orders=" + orders);
+            sb.append("&orders=").append(orders);
+        }
+        if(this.output!=null){
+            sb.append("&output=").append(output);
         }
 
         return sb.toString();
