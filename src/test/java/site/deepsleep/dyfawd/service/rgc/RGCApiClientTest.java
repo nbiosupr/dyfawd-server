@@ -43,7 +43,8 @@ public class RGCApiClientTest extends TestCase {
 
         //then
         assertThat(rgcResponseDto).isNotNull();
-
+        assertThat(rgcResponseDto.getResults().get(0).getRegion().getArea0().getName()).isEqualTo("kr");
+        assertThat(rgcResponseDto.getResults().get(0).getRegion().getArea2().getName()).isEqualTo("인제군");
     }
 
     @Test
