@@ -9,7 +9,6 @@ import site.deepsleep.dyfawd.dto.rgc.RGCResponseDto;
 import site.deepsleep.dyfawd.service.rgc.RGCApiClient;
 
 @RequiredArgsConstructor
-@Slf4j
 @Service
 public class RGCService {
 

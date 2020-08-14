@@ -2,11 +2,11 @@ package site.deepsleep.dyfawd.service.rgc;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import site.deepsleep.dyfawd.advice.exception.rgc.CInvalidPositionException;
+import site.deepsleep.dyfawd.advice.exception.rgc.CServerResponseNotOKException;
 import site.deepsleep.dyfawd.dto.rgc.RGCRequestDto;
 import site.deepsleep.dyfawd.dto.rgc.RGCResponseDto;
 
@@ -35,8 +35,23 @@ public class RGCApiClient {
 
         String url = this.BASE_URL + requestDto.toQueryString();
 
-        RGCResponseDto responseDto = null;
-        responseDto = restTemplate.exchange(url, HttpMethod.GET, entity, RGCResponseDto.class).getBody();
+        ResponseEntity<RGCResponseDto> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, RGCResponseDto.class);
+
+        // 응답이 200OK가 아닐시 Exception 발생시킴
+        if(responseEntity.getStatusCode() != HttpStatus.OK) {
+            throw new CServerResponseNotOKException(responseEntity.getStatusCode());
+        }
+
+        RGCResponseDto responseDto = responseEntity.getBody();
+
+        if (responseDto == null) {
+            throw new NullPointerException("[RGC] responseDto has null!");
+        }
+
+        // 좌표에 대한 주소를 찾을 수 없는 경우 Exception 발생시킴
+        if (responseDto.getStatus().getCode() == 3) {
+            throw new CInvalidPositionException("[RGC] Response code 3, no data which you request using coords!");
+        }
 
         return responseDto;
     }

@@ -2,6 +2,7 @@ package site.deepsleep.dyfawd.dto.rgc;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 public class RGCResponseDto {
     private List<Results> results;
+
+    @NonNull
     private Status status;
 
     @Getter

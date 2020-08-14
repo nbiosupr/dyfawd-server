@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
+import site.deepsleep.dyfawd.advice.exception.rgc.CInvalidPositionException;
 import site.deepsleep.dyfawd.dto.rgc.RGCRequestDto;
 import site.deepsleep.dyfawd.dto.rgc.RGCResponseDto;
 
@@ -45,6 +46,27 @@ public class RGCApiClientTest extends TestCase {
         assertThat(rgcResponseDto).isNotNull();
         assertThat(rgcResponseDto.getResults().get(0).getRegion().getArea0().getName()).isEqualTo("kr");
         assertThat(rgcResponseDto.getResults().get(0).getRegion().getArea2().getName()).isEqualTo("인제군");
+    }
+
+    @Test
+    public void RGC_API_범위이상_테스트() {
+        //given
+        float longitude = 1f;
+        float latitude = 1f;
+
+        RGCRequestDto requestDto = new RGCRequestDto(longitude, latitude);
+        CInvalidPositionException pe = null;
+
+        //when
+        try {
+            RGCResponseDto rgcResponseDto = apiClient.requestAddress(requestDto);
+        } catch (CInvalidPositionException e) {
+            pe = e;
+        }
+
+        //then
+        assertThat(pe).isNotNull();
+        assertThat(pe).isInstanceOf(CInvalidPositionException.class);
     }
 
     @Test
