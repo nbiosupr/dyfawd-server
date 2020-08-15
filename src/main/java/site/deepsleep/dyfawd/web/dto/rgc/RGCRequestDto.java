@@ -1,4 +1,4 @@
-package site.deepsleep.dyfawd.dto.rgc;
+package site.deepsleep.dyfawd.web.dto.rgc;
 
 
 import lombok.*;

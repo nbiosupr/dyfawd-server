@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGISRepository;
-import site.deepsleep.dyfawd.dto.rgc.RGCResponseDto;
+import site.deepsleep.dyfawd.web.dto.rgc.RGCResponseDto;
 import site.deepsleep.dyfawd.service.rgc.RGCService;
 import site.deepsleep.dyfawd.web.dto.SensorDataSaveRequestDto;
 import site.deepsleep.dyfawd.web.dto.response.CommonResult;

@@ -12,8 +12,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 import site.deepsleep.dyfawd.advice.exception.rgc.CInvalidPositionException;
-import site.deepsleep.dyfawd.dto.rgc.RGCRequestDto;
-import site.deepsleep.dyfawd.dto.rgc.RGCResponseDto;
+import site.deepsleep.dyfawd.web.dto.rgc.RGCRequestDto;
+import site.deepsleep.dyfawd.web.dto.rgc.RGCResponseDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
