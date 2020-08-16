@@ -56,5 +56,7 @@ public class SensorApiControllerTest extends TestCase {
         assertThat(gottenData.getLatitude()).isEqualTo(latitude);
         assertThat(gottenData.getLongitude()).isEqualTo(longitude);
         assertThat(gottenData.getArea2()).isEqualTo("인제군");
+
+        System.out.println(gottenData.getCreatedAt());
     }
 }

@@ -11,5 +11,10 @@ spring:
       enabled: true
   profiles:
     include: api
-
-
+loggin:
+  level:
+    site:
+      deepsleep:
+        dyfawd:
+          config:
+            commandline: debug
