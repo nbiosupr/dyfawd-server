@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface SensorDataGISRepository extends JpaRepository<SensorDataGIS, Long> {
     @Query(value = "select new site.deepsleep.dyfawd.domain.collecteddata.SensorDataForRank(d.area1 as area1, d.area2 as area2, count(d) as cnt1) from SensorDataGIS d group by d.area1, d.area2 order by cnt1 desc")
@@ -15,4 +16,6 @@ public interface SensorDataGISRepository extends JpaRepository<SensorDataGIS, Lo
     List<SensorDataGIS> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 
     List<SensorDataGIS> findByArea1AndArea2AndCreatedAtBetween(String area1, String area2, LocalDateTime start, LocalDateTime end);
+
+    Optional<SensorDataGIS> findTopByOrderByDataIdDesc();
 }

@@ -34,12 +34,6 @@ public class SensorApiControllerTest extends TestCase {
     private final Double longitude = 128.12345;
     private final Double latitude = 37.98776;
 
-
-    @After
-    public void tearDown(){
-        sensorDataGISRepository.deleteAll();
-    }
-
     @Test
     public void 수집데이터_등록_REST_GIS(){
         //given
@@ -52,7 +46,7 @@ public class SensorApiControllerTest extends TestCase {
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        SensorDataGIS gottenData = sensorDataGISRepository.findAll().get(0);
+        SensorDataGIS gottenData = sensorDataGISRepository.findTopByOrderByDataIdDesc().orElseThrow(NullPointerException::new);
         assertThat(gottenData.getLatitude()).isEqualTo(latitude);
         assertThat(gottenData.getLongitude()).isEqualTo(longitude);
         assertThat(gottenData.getArea2()).isEqualTo("인제군");
