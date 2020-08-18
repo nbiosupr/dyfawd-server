@@ -23,8 +23,7 @@ public class RGCApiClient {
     private final String BASE_URL = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?";
 
     private final RestTemplate restTemplate;
-    
-    // TODO: 오류 코드에 대한 예외처리
+
     public RGCResponseDto requestAddress(RGCRequestDto requestDto) {
 
         final HttpHeaders headers = new HttpHeaders();
