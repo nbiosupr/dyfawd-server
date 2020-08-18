@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import site.deepsleep.dyfawd.domain.BaseTimeEntity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -32,11 +34,13 @@ public class SensorDataGIS extends BaseTimeEntity {
     private String area3;
 
     @Builder
-    public SensorDataGIS(Double longitude, Double latitude, String area1, String area2, String area3) {
+    public SensorDataGIS(Double longitude, Double latitude, String area1, String area2, String area3, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.area1 = area1;
         this.area2 = area2;
         this.area3 = area3;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 }

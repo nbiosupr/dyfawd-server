@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import site.deepsleep.dyfawd.advice.exception.rgc.CInvalidPositionException;
 import site.deepsleep.dyfawd.advice.exception.rgc.CServerResponseNotOKException;
-import site.deepsleep.dyfawd.dto.rgc.RGCRequestDto;
-import site.deepsleep.dyfawd.dto.rgc.RGCResponseDto;
+import site.deepsleep.dyfawd.web.dto.rgc.RGCRequestDto;
+import site.deepsleep.dyfawd.web.dto.rgc.RGCResponseDto;
 
 @RequiredArgsConstructor
 @Service

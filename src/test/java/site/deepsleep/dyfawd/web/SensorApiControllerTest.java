@@ -43,7 +43,7 @@ public class SensorApiControllerTest extends TestCase {
     @Test
     public void 수집데이터_등록_REST_GIS(){
         //given
-        String url = "http://localhost:"+ port +"/api/v1/sensordata";
+        String url = "http://localhost:"+ port +"/api/v1/sensor/data";
         SensorDataSaveRequestDto requestDto = SensorDataSaveRequestDto.builder().latitude(latitude).longitude(longitude).build();
 
         //when
@@ -56,5 +56,7 @@ public class SensorApiControllerTest extends TestCase {
         assertThat(gottenData.getLatitude()).isEqualTo(latitude);
         assertThat(gottenData.getLongitude()).isEqualTo(longitude);
         assertThat(gottenData.getArea2()).isEqualTo("인제군");
+
+        System.out.println(gottenData.getCreatedAt());
     }
 }
