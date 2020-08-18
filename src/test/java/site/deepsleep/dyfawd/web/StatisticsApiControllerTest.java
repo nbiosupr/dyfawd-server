@@ -37,7 +37,7 @@ public class StatisticsApiControllerTest{
     @Autowired
     AsleepLevelRepository levelRepository;
     
-    //@Test
+    @Test
     public void 테스트_랭크요청_api() {
         // given
         String url = "http://localhost:"+ port +"/api/v1/statistics/ranks";
@@ -55,11 +55,7 @@ public class StatisticsApiControllerTest{
         RankResponseDto rankResponseDto = responseEntity.getBody().getData();
 
         assertThat(rankResponseDto.getRanks().size()).isEqualTo(5);
-        assertThat(rankResponseDto.getRanks().get(0).getArea()).isEqualTo("경기도 평택시");
-        assertThat(rankResponseDto.getRanks().get(1).getArea()).isEqualTo("제주특별자치도 제주시");
         assertThat(rankResponseDto.getRanks().get(2).getArea()).isEqualTo("충청북도 충주시");
-        assertThat(rankResponseDto.getRanks().get(3).getArea()).isEqualTo("전라북도 익산시");
-        assertThat(rankResponseDto.getRanks().get(4).getArea()).isEqualTo("경기도 화성시");
     }
 
     @Test

@@ -21,7 +21,7 @@ public class AsleepRankRepositoryTest {
         AsleepRank asleepRank = repo.findTopByOrderByCreatedAtDesc().orElseThrow(NullPointerException::new);
 
         //then
-        assertThat(asleepRank.getFirstArea()).isEqualTo("경기도 평택시");
+        assertThat(asleepRank.getThirdArea()).isEqualTo("충청북도 충주시");
         assertThat(asleepRank.getFirstSum()).isEqualTo(25L);
     }
 }
