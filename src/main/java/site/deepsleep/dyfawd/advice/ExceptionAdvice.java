@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import site.deepsleep.dyfawd.advice.exception.NoLevelDataException;
 import site.deepsleep.dyfawd.advice.exception.NoRankDataException;
 import site.deepsleep.dyfawd.advice.exception.NoSensorDataException;
+import site.deepsleep.dyfawd.advice.exception.rgc.CInvalidPositionException;
 import site.deepsleep.dyfawd.service.ResponseService;
 import site.deepsleep.dyfawd.web.dto.response.CommonResult;
 
@@ -48,5 +49,11 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected CommonResult noSensorDataException(HttpServletRequest request, Exception e) {
         return responseService.getFailResult(-2, "해당되는 센서 데이터가 없습니다.");
+    }
+
+    @ExceptionHandler(CInvalidPositionException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected CommonResult cInvalidPositionException(HttpServletRequest request, Exception e) {
+        return responseService.getFailResult(-2, "GPS 좌표가 올바르지 않습니다.");
     }
 }

@@ -1,7 +1,9 @@
 package site.deepsleep.dyfawd.service;
 
-import javafx.util.Pair;
+
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import site.deepsleep.dyfawd.advice.exception.NoLevelDataException;
@@ -116,7 +118,7 @@ public class StatisticsService {
             LocalTime startTime = LocalTime.of(startTimeNum, 0);
             LocalTime endTime = LocalTime.of(startTimeNum+3, 59);
 
-            Pair<LocalTime, LocalTime> timePair = new Pair<>(startTime, endTime);
+            Pair<LocalTime, LocalTime> timePair = new ImmutablePair<>(startTime, endTime);
             timePairList.add(timePair);
         }
 
