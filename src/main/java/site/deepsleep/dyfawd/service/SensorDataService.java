@@ -11,7 +11,7 @@ import site.deepsleep.dyfawd.web.dto.response.CommonResult;
 
 @RequiredArgsConstructor
 @Service
-public class SensorService {
+public class SensorDataService {
 
     private final SensorDataGISRepository sensorDataGISRepository;
     private final ResponseService responseService;

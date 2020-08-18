@@ -1,24 +1,26 @@
 package site.deepsleep.dyfawd.web.dto.statistics;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGIS;
 import site.deepsleep.dyfawd.web.dto.SensorDataDto;
 
 import java.util.List;
+import java.util.Map;
 
-@Data
+@Getter
+@NoArgsConstructor
 public class StatisticsResponseDto {
-    private boolean isNationwide;
-    private boolean isMonthly;
+    private Boolean isNationwide;
+    private Boolean isMonthly;
+    private Map<Integer, Map<String, List<SensorDataDto>>> results;
 
-    public static class Times {
-        private int month;
-        private int day;
-        private List<SensorDataDto> zeroToThree;
-        private List<SensorDataDto> fourToSeven;
-        private List<SensorDataDto> eightToEleven;
-        private List<SensorDataDto> twelveToFifteen;
-        private List<SensorDataDto> sixteenToNineteen;
-        private List<SensorDataDto> twentyToTwentyThree;
+    @Builder
+    public StatisticsResponseDto(Boolean isNationwide, Boolean isMonthly, Map<Integer, Map<String, List<SensorDataDto>>> results) {
+        this.isNationwide = isNationwide;
+        this.isMonthly = isMonthly;
+        this.results = results;
     }
-
 }

@@ -32,7 +32,7 @@ public class ResponseService {
     }
 
     // 단일건 결과를 처리하는 메소드
-    public <T> SingleResult<T> getSingleResult(T data) {
+    public <T> SingleResult<T> getSingleResult(T data) throws Exception{
         SingleResult<T> result = new SingleResult<>();
         result.setData(data);
         this.setSuccessResult(result);

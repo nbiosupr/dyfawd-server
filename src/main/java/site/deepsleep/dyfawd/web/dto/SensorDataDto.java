@@ -1,15 +1,25 @@
 package site.deepsleep.dyfawd.web.dto;
 
-import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGIS;
 
 import java.time.LocalDateTime;
 
-@Data
+@NoArgsConstructor
+@Getter
 public class SensorDataDto {
-    private double longitude;
-    private double latitude;
-    private String area1;
-    private String area2;
+    private Double longitude;
+    private Double latitude;
+    private String city;
+    private String country;
     private LocalDateTime creationDate;
+
+    public SensorDataDto(SensorDataGIS sensorDataGIS) {
+        this.longitude = sensorDataGIS.getLongitude();
+        this.latitude = sensorDataGIS.getLatitude();
+        this.city = sensorDataGIS.getArea1();
+        this.country = sensorDataGIS.getArea2();
+        this.creationDate = sensorDataGIS.getCreatedAt();
+    }
 }
