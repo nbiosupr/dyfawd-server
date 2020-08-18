@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
+import site.deepsleep.dyfawd.domain.asleeplevel.AsleepLevel;
+import site.deepsleep.dyfawd.domain.asleeplevel.AsleepLevelRepository;
 import site.deepsleep.dyfawd.domain.asleeprank.AsleepRank;
 import site.deepsleep.dyfawd.domain.asleeprank.AsleepRankRepository;
 import site.deepsleep.dyfawd.domain.collecteddata.SensorDataForRank;
@@ -26,6 +28,7 @@ public class DummyDataConfiguration implements CommandLineRunner {
 
     private final SensorDataGISRepository sensorDataGISRepository;
     private final AsleepRankRepository asleepRankRepository;
+    private final AsleepLevelRepository asleepLevelRepository;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -33,6 +36,7 @@ public class DummyDataConfiguration implements CommandLineRunner {
     public void run(String... args) throws Exception {
         this.loadDummySensorData();
         this.makeRankData();
+        this.makeLevelDummyData();
     }
 
     private void makeRankData() {
@@ -95,5 +99,30 @@ public class DummyDataConfiguration implements CommandLineRunner {
         }
 
         logger.info("CSV reading finish! whole item count: " + count);
+    }
+
+    private void makeLevelDummyData() {
+        logger.info("AsleepLevel Dummy Data insert start!");
+
+        AsleepLevel asleepLevel1 = AsleepLevel.builder()
+                .andong(1)
+                .busan(2)
+                .changwon(1)
+                .cheongju(1)
+                .daegu(3)
+                .gangleung(2)
+                .chuncheon(1)
+                .daejeon(1)
+                .gwangju(1)
+                .incheon(2)
+                .jeonju(1)
+                .seoul(3)
+                .suwon(2)
+                .ulsan(3)
+                .build();
+
+        asleepLevelRepository.save(asleepLevel1);
+
+        logger.info("AsleepLevel Dummy Data insert finish!");
     }
 }
