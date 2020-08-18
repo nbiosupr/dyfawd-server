@@ -15,6 +15,4 @@ public interface SensorDataGISRepository extends JpaRepository<SensorDataGIS, Lo
     List<SensorDataGIS> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 
     List<SensorDataGIS> findByArea1AndArea2AndCreatedAtBetween(String area1, String area2, LocalDateTime start, LocalDateTime end);
-
-    List<SensorDataGIS> findByArea1ContainsAndArea2ContainsAndCreatedAtBetween(String area1, String area2, LocalDateTime start, LocalDateTime end);
 }
