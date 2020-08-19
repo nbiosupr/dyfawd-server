@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import site.deepsleep.dyfawd.domain.asleeplevel.AsleepLevel;
@@ -26,8 +27,9 @@ import java.util.Collections;
 import java.util.List;
 
 @Slf4j
-@Configuration
+@Profile({"test", "local"})
 @RequiredArgsConstructor
+@Configuration
 public class DummyDataConfiguration implements CommandLineRunner {
 
     private final SensorDataGISRepository sensorDataGISRepository;

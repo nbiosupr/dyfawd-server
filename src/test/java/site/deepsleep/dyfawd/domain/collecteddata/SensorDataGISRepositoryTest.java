@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,6 +23,7 @@ public class SensorDataGISRepositoryTest{
     SensorDataGISRepository dataRepo;
 
     @Test
+    @Transactional
     public void 테스트_구단위와_시간간격_find_all() {
         // given
         String area1 = "제주특별자치도";

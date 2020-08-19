@@ -14,6 +14,7 @@ import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGIS;
 import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGISRepository;
 import site.deepsleep.dyfawd.domain.sensor.SensorInfo;
@@ -47,11 +48,7 @@ public class SensorApiControllerTest extends TestCase {
     private PasswordEncoder passwordEncoder;
 
     @Test
-    public void test_ok() {
-        assertThat("ok").isEqualTo("ok");
-    }
-
-    //@Test
+    @Transactional
     public void 수집데이터_등록_REST_GIS(){
         //given
         String token = this.getDummyToken();
