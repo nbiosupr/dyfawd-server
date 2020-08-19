@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import site.deepsleep.dyfawd.domain.asleeplevel.AsleepLevel;
 import site.deepsleep.dyfawd.domain.asleeplevel.AsleepLevelRepository;
 import site.deepsleep.dyfawd.domain.asleeprank.AsleepRank;
@@ -15,10 +16,13 @@ import site.deepsleep.dyfawd.domain.asleeprank.AsleepRankRepository;
 import site.deepsleep.dyfawd.domain.collecteddata.SensorDataForRank;
 import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGIS;
 import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGISRepository;
+import site.deepsleep.dyfawd.domain.sensor.SensorInfo;
+import site.deepsleep.dyfawd.domain.sensor.SensorInfoRepository;
 
 import java.io.FileReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -29,6 +33,8 @@ public class DummyDataConfiguration implements CommandLineRunner {
     private final SensorDataGISRepository sensorDataGISRepository;
     private final AsleepRankRepository asleepRankRepository;
     private final AsleepLevelRepository asleepLevelRepository;
+    private final SensorInfoRepository sensorInfoRepository;
+    private final PasswordEncoder passwordEncoder;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -37,6 +43,7 @@ public class DummyDataConfiguration implements CommandLineRunner {
         this.loadDummySensorData();
         this.makeRankData();
         this.makeLevelDummyData();
+        this.makeDummySensorId();
     }
 
     private void makeRankData() {
@@ -124,5 +131,18 @@ public class DummyDataConfiguration implements CommandLineRunner {
         asleepLevelRepository.save(asleepLevel1);
 
         logger.info("AsleepLevel Dummy Data insert finish!");
+    }
+    
+    //TODO: 지우기
+    private void makeDummySensorId() {
+        String id = "deep_sleep";
+        String pw = "security203!";
+
+        sensorInfoRepository.save(SensorInfo.builder()
+                .sensorId(id)
+                .password(passwordEncoder.encode(pw))
+                .roles(Collections.singletonList("ROLE_SENSOR"))
+                .build());
+
     }
 }
