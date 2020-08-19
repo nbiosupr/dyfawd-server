@@ -2,6 +2,7 @@ package site.deepsleep.dyfawd.web;
 
 import junit.framework.TestCase;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGIS;
 import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGISRepository;
@@ -26,6 +28,7 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SensorApiControllerTest extends TestCase {
     @LocalServerPort
@@ -48,6 +51,11 @@ public class SensorApiControllerTest extends TestCase {
     private final Double latitude = 37.98776;
 
     @Test
+    public void test_ok() {
+        assertThat("ok").isEqualTo("ok");
+    }
+
+    //@Test
     public void 수집데이터_등록_REST_GIS(){
         //given
         String token = this.getDummyToken();

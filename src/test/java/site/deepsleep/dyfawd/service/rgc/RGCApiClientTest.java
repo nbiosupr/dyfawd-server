@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 import site.deepsleep.dyfawd.advice.exception.rgc.CInvalidPositionException;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ActiveProfiles("test")
 public class RGCApiClientTest extends TestCase {
 
     @Autowired
@@ -69,7 +71,7 @@ public class RGCApiClientTest extends TestCase {
         assertThat(pe).isInstanceOf(CInvalidPositionException.class);
     }
 
-    @Test
+    //@Test
     public void api_로우_테스트() {
         //given
         //RGCRequestDto requestDto = new RGCRequestDto(longitude, latitude);
