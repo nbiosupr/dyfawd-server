@@ -1,4 +1,4 @@
-package site.deepsleep.dyfawd.web;
+package site.deepsleep.dyfawd.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

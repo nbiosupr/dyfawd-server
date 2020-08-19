@@ -46,10 +46,6 @@ public class SensorApiControllerTest extends TestCase {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    //given
-    private final Double longitude = 128.12345;
-    private final Double latitude = 37.98776;
-
     @Test
     public void test_ok() {
         assertThat("ok").isEqualTo("ok");
@@ -64,6 +60,9 @@ public class SensorApiControllerTest extends TestCase {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-AUTH_TOKEN", token);
 
+        //given
+        Double longitude = 128.12345;
+        Double latitude = 37.98776;
         SensorDataSaveRequestDto requestDto = SensorDataSaveRequestDto.builder().latitude(latitude).longitude(longitude).build();
 
         HttpEntity<SensorDataSaveRequestDto> requestEntity = new HttpEntity<>(requestDto, headers);
@@ -79,8 +78,6 @@ public class SensorApiControllerTest extends TestCase {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.FOUND);
 
         SensorDataGIS gottenData = sensorDataGISRepository.findTopByOrderByDataIdDesc().orElseThrow(NullPointerException::new);
-        //assertThat(gottenData.getLatitude()).isEqualTo(latitude);
-        //assertThat(gottenData.getLongitude()).isEqualTo(longitude);
         assertThat(gottenData.getArea2()).isEqualTo("제천시");
 
         System.out.println(gottenData.getCreatedAt());

@@ -1,5 +1,6 @@
 package site.deepsleep.dyfawd.web.dto.statistics;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,11 +10,22 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class StatisticsRequestDto {
+    @ApiModelProperty(value="전국/지역별 여부", required = true)
     private Boolean isNationwide;
+    
+    @ApiModelProperty(value="월별/일별 여부", required = true)
     private Boolean isMonthly;
+
+    @ApiModelProperty(value="연도", required = true)
     private int year;
+
+    @ApiModelProperty(value="월(월별 조회시 비워도 됨)")
     private int month;
+
+    @ApiModelProperty(value="시/도(전국 조회시 비워도 됨)")
     private String city;
+
+    @ApiModelProperty(value="군/구/시(전국 조회시 비워도 됨)")
     private String country;
 
     @Builder

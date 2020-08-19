@@ -71,11 +71,12 @@ public class RGCApiClientTest extends TestCase {
         assertThat(pe).isInstanceOf(CInvalidPositionException.class);
     }
 
-    //@Test
+    @Test
     public void api_로우_테스트() {
         //given
         //RGCRequestDto requestDto = new RGCRequestDto(longitude, latitude);
-        String pos = "128.12345,37.98776";
+        //String pos = "128.12345,37.98776";
+        String pos = "128.533216,35.851063";
         RGCRequestDto requestDto = RGCRequestDto.builder().coords(pos).output("json").build();
 
         RestTemplate restTemplate = new RestTemplate();

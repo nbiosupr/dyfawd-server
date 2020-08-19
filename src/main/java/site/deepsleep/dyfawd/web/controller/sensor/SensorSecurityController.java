@@ -1,4 +1,4 @@
-package site.deepsleep.dyfawd.web;
+package site.deepsleep.dyfawd.web.controller.sensor;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
