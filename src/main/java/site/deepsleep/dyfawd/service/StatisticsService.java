@@ -47,6 +47,7 @@ public class StatisticsService {
         }
     }
 
+    @Transactional(readOnly = true)
     public LevelResponseDto getLevelResult() throws Exception{
         try {
             AsleepLevel level = levelRepository.findTopByOrderByCreatedAtDesc().orElseThrow(NullPointerException::new);
@@ -58,6 +59,7 @@ public class StatisticsService {
         }
      }
 
+    @Transactional(readOnly = true)
     public StatisticsResponseDto getStatisticsResult(StatisticsRequestDto requestDto){
         int year = requestDto.getYear();
         boolean isMonthly = requestDto.getIsMonthly();

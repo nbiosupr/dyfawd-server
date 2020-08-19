@@ -19,7 +19,10 @@ public class SensorDataService {
 
     @Transactional
     public CommonResult save(SensorDataSaveRequestDto requestDto) {
-        RGCResponseDto rgcResponseDto = rgcService.findByPos(requestDto.getLongitude(), requestDto.getLatitude());
+        // 소숫점 6자리 아래 반올림
+        double longitude = Math.round(requestDto.getLongitude() * 1000000) / 1000000.0;
+        double latitude = Math.round(requestDto.getLatitude() * 1000000) / 1000000.0;
+        RGCResponseDto rgcResponseDto = rgcService.findByPos(longitude, latitude);
 
         String area1 = rgcResponseDto.getResults().get(0).getRegion().getArea1().getName();
         String area2 = rgcResponseDto.getResults().get(0).getRegion().getArea2().getName();
