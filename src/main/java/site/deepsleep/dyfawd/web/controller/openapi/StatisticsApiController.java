@@ -6,10 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import site.deepsleep.dyfawd.advice.exception.NoAvailableAreaException;
 import site.deepsleep.dyfawd.service.ResponseService;
 import site.deepsleep.dyfawd.service.StatisticsService;
+import site.deepsleep.dyfawd.web.dto.response.ListResult;
 import site.deepsleep.dyfawd.web.dto.response.SingleResult;
 import site.deepsleep.dyfawd.web.dto.statistics.*;
+
+import java.util.List;
 
 @Api(tags = {"Statistics"})
 @Slf4j
@@ -79,5 +83,22 @@ public class StatisticsApiController {
         StatisticsLinearResponseDto responseDto = statisticsService.getStatisticsResult(requestDto);
 
         return responseService.getSingleResult(responseDto);
+    }
+
+    @ApiOperation(value="요청가능한 도/시 목록 조회", notes = "현재 요청가능한 도/시 목록을 조회할 수 있음")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "조회성공"),
+            @ApiResponse(code = 404, message = "데이터가 없습니다."),
+    })
+    @GetMapping("/areas")
+    public ListResult<ResponseAreaDto> getAvailableArea() {
+        List<ResponseAreaDto> availableAreaList = statisticsService.getAvailableAreaList();
+        
+        // 조회가능한 도시가 없는 경우 예외처리
+        if(availableAreaList.size() == 0) {
+            throw new NoAvailableAreaException();
+        }
+
+        return responseService.getListResult(availableAreaList);
     }
 }

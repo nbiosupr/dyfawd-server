@@ -23,7 +23,7 @@ public class SwaggerConfiguration {
     }
 
     private ApiInfo swaggerInfo() {
-        return new ApiInfoBuilder().title("Spring API Documentation")
+        return new ApiInfoBuilder().title("Do you fall aleep while driving OPEN API Docs")
                 .description("운전 중에 잠이오나?! OPEN API 문서 입니다.")
                 .license("제7회 SW개발보안 경진대회 딥 슬립팀").licenseUrl("http://dyfawd.deepsleep.site").version("1").build();
     }

@@ -38,7 +38,6 @@ public class DummyDataConfiguration implements CommandLineRunner {
     private final SensorInfoRepository sensorInfoRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void run(String... args) throws Exception {
@@ -49,7 +48,7 @@ public class DummyDataConfiguration implements CommandLineRunner {
     }
 
     private void makeRankData() {
-        logger.info("make rank dummy data start!");
+        log.debug("make rank dummy data start!");
 
         List<SensorDataForRank> results =  sensorDataGISRepository.getDataForRank(PageRequest.of(0,5));
 
@@ -68,7 +67,7 @@ public class DummyDataConfiguration implements CommandLineRunner {
 
         asleepRankRepository.save(asleepRank);
 
-        logger.info("make rank dummy data finish!");
+        log.debug("make rank dummy data finish!");
     }
 
     private void loadDummySensorData() throws Exception{
@@ -76,8 +75,8 @@ public class DummyDataConfiguration implements CommandLineRunner {
         int count = 0;
         boolean firstFlag = true;
 
-        logger.info("working dir: " + System.getProperty("user.dir"));
-        logger.info("CSV reading start!");
+        log.debug("working dir: " + System.getProperty("user.dir"));
+        log.debug("CSV reading start!");
         CSVReader reader = new CSVReader(new FileReader("./dummy_export.csv"));
         String [] nextLine;
 
@@ -107,11 +106,11 @@ public class DummyDataConfiguration implements CommandLineRunner {
             count++;
         }
 
-        logger.info("CSV reading finish! whole item count: " + count);
+        log.debug("CSV reading finish! whole item count: " + count);
     }
 
     private void makeLevelDummyData() {
-        logger.info("AsleepLevel Dummy Data insert start!");
+        log.debug("AsleepLevel Dummy Data insert start!");
 
         AsleepLevel asleepLevel1 = AsleepLevel.builder()
                 .andong(1)
@@ -132,7 +131,7 @@ public class DummyDataConfiguration implements CommandLineRunner {
 
         asleepLevelRepository.save(asleepLevel1);
 
-        logger.info("AsleepLevel Dummy Data insert finish!");
+        log.debug("AsleepLevel Dummy Data insert finish!");
     }
     
     //TODO: 지우기

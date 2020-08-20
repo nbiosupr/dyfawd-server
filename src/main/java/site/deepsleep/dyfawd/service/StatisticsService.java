@@ -14,6 +14,7 @@ import site.deepsleep.dyfawd.domain.collecteddata.SensorDataGISRepository;
 import site.deepsleep.dyfawd.web.dto.SensorDataDto;
 import site.deepsleep.dyfawd.web.dto.statistics.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -98,5 +99,19 @@ public class StatisticsService {
         }
 
         return StatisticsLinearResponseDto.builder().isMonthly(isMonthly).isNationwide(isNationwide).results(dtoList).build();
+    }
+
+    public List<ResponseAreaDto> getAvailableAreaList() {
+        List<ResponseAreaDto> resultList = new ArrayList<>();
+
+        List<String> cityList = sensorDataService.getCityList();
+        for (String city : cityList) {
+            List<String> countryList = sensorDataService.getCountryListByCity(city);
+            ResponseAreaDto responseAreaDto= ResponseAreaDto.builder().city(city).countryList(countryList).build();
+
+            resultList.add(responseAreaDto);
+        }
+
+        return resultList;
     }
 }

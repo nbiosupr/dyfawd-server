@@ -258,4 +258,16 @@ public class SensorDataService {
 
         return sensorDataGISRepository.findByCreatedAtBetween(startDateTime, endDateTime);
     }
+
+    // city(시/도) list 가져오기
+    @Transactional(readOnly = true)
+    public List<String> getCityList() {
+        return sensorDataGISRepository.findAllCityGroupByCity();
+    }
+
+    // city 내에 위치하는 시/군/구 list 가져오기
+    @Transactional(readOnly = true)
+    public List<String> getCountryListByCity(String city) {
+        return sensorDataGISRepository.findAllCountryGroupByCountry(city);
+    }
 }

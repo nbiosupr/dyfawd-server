@@ -7,6 +7,7 @@ import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import site.deepsleep.dyfawd.advice.exception.NoAvailableAreaException;
 import site.deepsleep.dyfawd.advice.exception.NoLevelDataException;
 import site.deepsleep.dyfawd.advice.exception.NoRankDataException;
 import site.deepsleep.dyfawd.advice.exception.NoSensorDataException;
@@ -65,6 +66,12 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected CommonResult cInvalidPositionException(HttpServletRequest request, Exception e) {
         return responseService.getFailResult(-2, "GPS 좌표가 올바르지 않습니다.");
+    }
+
+    @ExceptionHandler(NoAvailableAreaException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected CommonResult noAvailableAreaException(HttpServletRequest request, Exception e) {
+        return responseService.getFailResult(-2, "조회 가능한 도시 목록이 없습니다.");
     }
 
     @ExceptionHandler(CSensorAuthFailedException.class)
