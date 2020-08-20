@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import site.deepsleep.dyfawd.service.ResponseService;
 import site.deepsleep.dyfawd.service.StatisticsService;
 import site.deepsleep.dyfawd.web.dto.response.SingleResult;
-import site.deepsleep.dyfawd.web.dto.statistics.LevelResponseDto;
-import site.deepsleep.dyfawd.web.dto.statistics.RankResponseDto;
-import site.deepsleep.dyfawd.web.dto.statistics.StatisticsRequestDto;
-import site.deepsleep.dyfawd.web.dto.statistics.StatisticsResponseDto;
+import site.deepsleep.dyfawd.web.dto.statistics.*;
 
 @Api(tags = {"Statistics"})
 @Slf4j
@@ -48,20 +45,38 @@ public class StatisticsApiController {
         return responseService.getSingleResult(responseDto);
     }
 
-    @ApiOperation(value="졸음 통계 데이터 조회", notes = "지역별/전국별, 월별/일별 졸음 통계 데이터를 얻을 수 있다.")
+    @ApiOperation(value="졸음 통계 데이터 조회(시간별)", notes = "지역별/전국별, 월별/일별 졸음 통계 데이터를 얻을 수 있다.(시간별 분류)")
     @ApiResponses({
             @ApiResponse(code = 200, message = "조회성공"),
             @ApiResponse(code = 404, message = "데이터가 없습니다."),
     })
     @GetMapping("/data")
-    public SingleResult<StatisticsResponseDto> getData(StatisticsRequestDto requestDto) throws Exception{
+    public SingleResult<StatisticsDistributedResponseDto> getData(StatisticsRequestDto requestDto) throws Exception{
         // 중앙 에러 처리. 매핑 에러는 filter 에서 미리 처리
         boolean errorFlag = false;
         if (!requestDto.getIsMonthly() && (1 > requestDto.getMonth() || requestDto.getMonth() > 12)) errorFlag = true;
         else if (!requestDto.getIsNationwide() && (requestDto.getCity() == null || requestDto.getCountry() == null)) errorFlag = true;
         if(errorFlag) throw new IllegalArgumentException("요청 인수가 잘못되었습니다");
 
-        StatisticsResponseDto responseDto = statisticsService.getStatisticsResult(requestDto);
+        StatisticsDistributedResponseDto responseDto = statisticsService.getStatisticsResultDistributedByTime(requestDto);
+
+        return responseService.getSingleResult(responseDto);
+    }
+
+    @ApiOperation(value="졸음 통계 데이터 조회(원블럭)", notes = "지역별/전국별, 월별/일별 졸음 통계 데이터를 얻을 수 있다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "조회성공"),
+            @ApiResponse(code = 404, message = "데이터가 없습니다."),
+    })
+    @GetMapping("/one_block_data")
+    public SingleResult<StatisticsLinearResponseDto> getOneBlockData(StatisticsRequestDto requestDto) throws Exception{
+        // 중앙 에러 처리. 매핑 에러는 filter 에서 미리 처리
+        boolean errorFlag = false;
+        if (!requestDto.getIsMonthly() && (1 > requestDto.getMonth() || requestDto.getMonth() > 12)) errorFlag = true;
+        else if (!requestDto.getIsNationwide() && (requestDto.getCity() == null || requestDto.getCountry() == null)) errorFlag = true;
+        if(errorFlag) throw new IllegalArgumentException("요청 인수가 잘못되었습니다");
+
+        StatisticsLinearResponseDto responseDto = statisticsService.getStatisticsResult(requestDto);
 
         return responseService.getSingleResult(responseDto);
     }

@@ -9,7 +9,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,8 +16,9 @@ import site.deepsleep.dyfawd.domain.asleeplevel.AsleepLevelRepository;
 import site.deepsleep.dyfawd.domain.asleeprank.AsleepRankRepository;
 import site.deepsleep.dyfawd.web.dto.response.SingleResult;
 import site.deepsleep.dyfawd.web.dto.statistics.RankResponseDto;
+import site.deepsleep.dyfawd.web.dto.statistics.StatisticsLinearResponseDto;
 import site.deepsleep.dyfawd.web.dto.statistics.StatisticsRequestDto;
-import site.deepsleep.dyfawd.web.dto.statistics.StatisticsResponseDto;
+import site.deepsleep.dyfawd.web.dto.statistics.StatisticsDistributedResponseDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -63,15 +63,33 @@ public class StatisticsApiControllerTest{
     @Test
     public void 테스트_통계데이터_요청() {
         // given
-        StatisticsRequestDto requestDto =StatisticsRequestDto.builder().isNationwide(true).isMonthly(true).year(2020).build();
+        StatisticsRequestDto requestDto = StatisticsRequestDto.builder().isNationwide(true).isMonthly(true).year(2020).build();
         String url = "http://localhost:"+ port +"/api/v1/statistics/data" + requestDto.toPathString();
 
         // when
-        ResponseEntity<SingleResult<StatisticsResponseDto>> responseEntity = restTemplate.exchange(
+        ResponseEntity<SingleResult<StatisticsDistributedResponseDto>> responseEntity = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null ,
-                new ParameterizedTypeReference<SingleResult<StatisticsResponseDto>>() {});
+                new ParameterizedTypeReference<SingleResult<StatisticsDistributedResponseDto>>() {});
+
+        // then
+        System.out.print(responseEntity.toString());
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void 테스트_원블록_통계데이터_요청() {
+        // given
+        StatisticsRequestDto requestDto = StatisticsRequestDto.builder().isNationwide(true).isMonthly(true).year(2020).build();
+        String url = "http://localhost:"+ port +"/api/v1/statistics/one_block_data" + requestDto.toPathString();
+
+        // when
+        ResponseEntity<SingleResult<StatisticsLinearResponseDto>> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null ,
+                new ParameterizedTypeReference<SingleResult<StatisticsLinearResponseDto>>() {});
 
         // then
         System.out.print(responseEntity.toString());
