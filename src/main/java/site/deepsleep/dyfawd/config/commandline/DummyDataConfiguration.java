@@ -39,9 +39,9 @@ public class DummyDataConfiguration implements CommandLineRunner {
     private final SensorInfoRepository sensorInfoRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("$test.dummy.id")
+    @Value("${test.dummy.id}")
     private String id;
-    @Value("$test.dummy.pw")
+    @Value("${test.dummy.pw}")
     private String pw;
 
     @Override
