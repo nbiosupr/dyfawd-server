@@ -13,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import site.deepsleep.dyfawd.advice.exception.security.CustomAuthenticationEntryPoint;
 
@@ -72,6 +73,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .authorizeRequests()
+                    // .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                     .antMatchers("/").permitAll()
                     .antMatchers("/api/v1/statistics/**").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/v1/security/token").permitAll()
@@ -96,8 +98,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader("*");
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/v1/statistics/**", new CorsConfiguration().applyPermitDefaultValues());
+        source.registerCorsConfiguration("/api/v1/statistics/**", configuration);
+
         return source;
     }
 }
