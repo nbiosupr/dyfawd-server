@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -38,6 +39,10 @@ public class DummyDataConfiguration implements CommandLineRunner {
     private final SensorInfoRepository sensorInfoRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Value("$test.dummy.id")
+    private String id;
+    @Value("$test.dummy.pw")
+    private String pw;
 
     @Override
     public void run(String... args) throws Exception {
@@ -133,12 +138,8 @@ public class DummyDataConfiguration implements CommandLineRunner {
 
         log.debug("AsleepLevel Dummy Data insert finish!");
     }
-    
-    //TODO: 지우기
-    private void makeDummySensorId() {
-        String id = "deep_sleep";
-        String pw = "security203!";
 
+    private void makeDummySensorId() {
         sensorInfoRepository.save(SensorInfo.builder()
                 .sensorId(id)
                 .password(passwordEncoder.encode(pw))
