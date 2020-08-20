@@ -59,6 +59,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers(HttpMethod.POST, "/api/v1/sensor/data").hasRole("SENSOR")
                     .anyRequest().permitAll()
                 .and()
+                    .cors()
+                .and()
                     .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()
                     .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
