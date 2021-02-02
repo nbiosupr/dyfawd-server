@@ -1,5 +1,8 @@
 # dyfawd-server ("운전 중에 잠이 오나?!" 프로젝트 - 서버)
 
+[![시연영상](https://img.youtube.com/vi/5onWKiN6sK4/0.jpg)](https://youtu.be/5onWKiN6sK4)
+
+
 ## 기능
 - 졸음운전을 감지하여 사용자를 깨우고 데이터를 수집
 - 졸음운전 데이터를 실시간으로 수집하여 통계자료로 가공하고 제공하는 서비스
